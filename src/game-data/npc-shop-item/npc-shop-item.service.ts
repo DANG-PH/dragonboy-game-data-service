@@ -12,6 +12,7 @@ import {
   SuaShopItemRequest,
   XoaShopItemRequest,
   NpcShopItem,
+  XoaShopItemResponse,
 } from '../../../proto/game-data.pb';
 
 @Injectable()
@@ -83,7 +84,7 @@ export class NpcShopItemService {
     return this.toProto(withRelation);
   }
 
-  async xoaShopItem(data: XoaShopItemRequest): Promise<Empty> {
+  async xoaShopItem(data: XoaShopItemRequest): Promise<XoaShopItemResponse> {
     const item = await this.npcShopItemRepo.findOne({
       where: { id: data.id },
       relations: ['npcBase', 'itemBase'],
@@ -97,7 +98,9 @@ export class NpcShopItemService {
     }
 
     await this.npcShopItemRepo.remove(item);
-    return {};
+    return {
+      npcId: item.npcBase.id
+    };
   }
 
   private toProto(item: NpcShopItemEntity): NpcShopItem {

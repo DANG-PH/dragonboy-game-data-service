@@ -9,6 +9,7 @@ import type {
   SuaShopItemRequest,
   XoaShopItemRequest,
   NpcShopItem,
+  XoaShopItemResponse,
 } from '../../../proto/game-data.pb';
 
 @Controller()
@@ -31,7 +32,7 @@ export class NpcShopItemController {
   }
 
   @GrpcMethod('GameDataService', 'XoaShopItem')
-  async xoaShopItem(data: XoaShopItemRequest): Promise<Empty> {
+  async xoaShopItem(data: XoaShopItemRequest): Promise<XoaShopItemResponse> {
     return this.npcShopItemService.xoaShopItem(data);
   }
 }
