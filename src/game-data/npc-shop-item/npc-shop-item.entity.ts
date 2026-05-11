@@ -39,4 +39,10 @@ export class NpcShopItemEntity {
 
   @Column({ default: true })
   is_active: boolean;
+
+  @Column({ type: 'timestamp', nullable: true })
+  start_at: Date | null;
+
+  @Column({ type: 'timestamp', nullable: true })
+  end_at: Date | null;
 }
