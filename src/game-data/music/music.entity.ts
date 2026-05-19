@@ -16,7 +16,7 @@ export class MusicEntity {
   @Column()
   fileUrl: string;
 
-  @Column()
+  @Column({ unique: true, length: 32 })
   hash: string;
 
   @Column({ type: 'enum', enum: MusicStatus, default: MusicStatus.PROCESSING })

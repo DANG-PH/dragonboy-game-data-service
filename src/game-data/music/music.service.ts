@@ -38,11 +38,21 @@ export class MusicService {
   }
 
   async themMusic(data: ThemMusicRequest): Promise<Music> {
-    const existed = await this.musicRepo.findOneBy({ name: data.name });
-    if (existed) {
+    // Check name trùng
+    const existedName = await this.musicRepo.findOneBy({ name: data.name });
+    if (existedName) {
       throw new RpcException({
         code: status.ALREADY_EXISTS,
         message: `Nhạc "${data.name}" đã tồn tại`,
+      });
+    }
+
+    // Check hash trùng (file giống hệt đã upload trước đó)
+    const existedHash = await this.musicRepo.findOneBy({ hash: data.hash });
+    if (existedHash) {
+      throw new RpcException({
+        code: status.ALREADY_EXISTS,
+        message: `File này đã được upload trước đó (tên: "${existedHash.name}")`,
       });
     }
 
