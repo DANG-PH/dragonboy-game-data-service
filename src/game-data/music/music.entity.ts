@@ -19,6 +19,6 @@ export class MusicEntity {
   @Column()
   hash: string;
 
-  @Column({ type: 'enum', enum: MusicStatus, default: MusicStatus.ACTIVE })
+  @Column({ type: 'enum', enum: MusicStatus, default: MusicStatus.PROCESSING })
   status: MusicStatus;
 }
